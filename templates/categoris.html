@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% load static %}
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+{% block header %}
+<head>
+<title>{{ catname.name }} category</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="stylesheet" type="text/css" href="{% static 'style.css' %}" />
+<!--[if lte IE 6]><link rel="stylesheet" type="text/css" href="ie.css" /><![endif]-->
+</head>
+{% endblock %}
+{% block content %}
+<body>
+<!-- BEGIN wrapper -->
+<div id="wrapper">
+  <!-- BEGIN body -->
+  <div id="body">
+    <!-- BEGIN content -->
+    <div id="content">
+      <div class="buffer">
+
+        <!-- begin post -->
+        {% for post in posts %}
+        <div class="post">
+          <h2><a href="{% url 'list' post.publish.year post.publish.month post.publish.day post.slug %}">{{ post.title }}</a></h2>
+          <p class="date"><a href="#">{{ post.author }}</a>{{ post.created }}| <a href="#">12 Comments</a></p>
+          {% if post.photo %}
+          <div class="thumb"><a href="{% url 'list' post.publish.year post.publish.month post.publish.day post.slug %}"><img src="{{ post.photo.url }}" alt="" /></a></div>
+          {% else %}
+          <div class="thumb"><a href="{% url 'list' post.publish.year post.publish.month post.publish.day post.slug %}"><img src="{% static 'images/_thumb1.jpg' %}" alt="" /></a></div>
+          {% endif %}
+          <p>{{ post.body|truncatewords:20|safe }}</p>
+          <a class="readmore" href="{% url 'list' post.publish.year post.publish.month post.publish.day post.slug %}">Read More</a> </div>
+        {% endfor %}
+          <!-- end post -->
+      </div>
+    </div>
+    
+  </div>
+</div>
+</body>
+{% endblock %}

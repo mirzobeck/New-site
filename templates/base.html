@@ -1,0 +1,64 @@
+{% load static %}
+{% load cat_tags %}
+{% block header %}
+
+{% endblock %}
+<head>
+    <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}" />
+</head>
+<body>
+    <div class="buffer">
+    <div id="header">
+        <div class="buffer">
+            <div class="buffer">
+                <ul>
+                    {% if request.user.is_authenticated %}
+                    <li><a style="color: rgb(25, 0, 255); font-size:15px; padding-top: 0;" href="{% url 'one' %}">{{ request.user.username }}</a></li>
+                    <li><a href="{% url 'logout' %}">Logout</a></li>
+                    {% else %}
+                    <li><a href="{% url 'register' %}">Register</a></li>
+                    <li><a href="{% url 'login' %}">Login</a></li>
+                    {% endif %}
+                    {% if request.user.is_authenticated %}
+                    <li><a href="{% url 'create' %}">Add post</a></li>
+                    {% endif %}
+                </ul>
+                <h1 style="margin-top: 20px; font-size: 40px; color:rgb(76, 220, 51);">news</h1>
+                <div class="ad"> <a href="{% url 'one' %}"><img src="{% static 'images/ad468x60.gif' %}" alt="" /></a> </div>
+                <ol>
+                    <li class="f"><a href="{% url 'one' %}">Home</a></li>
+                </ol>
+                <form action="{% url 'search' %}">
+                    <input style="font-size: 15px; background-color:rgb(204, 204, 204); border-radius: 5px; padding:3px" type="text" name="query" id="" value="{{ request.GET.query }}" />
+                    <button >Search</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div id="wrapper">
+
+        <!-- BEGIN sidebar -->
+        <div id="sidebar">
+            <!-- begin categories -->
+            <h2>Categories</h2>
+            {% get_cat as cats %}
+            <ul>
+                {% for cat in cats %}
+                <li><a href="{% url 'cat' cat.slug %}">{{ cat.name }}s</a></li>
+                {% endfor %}
+            </ul>
+            <!-- end categories -->
+            <!-- end meta -->
+            <!-- begin tags -->
+            <h2>Tags</h2>
+            <div class="tags"> <a href="https://t.me/Mirzobek_Sobirov">Link</a> </div>
+            <!-- end tags -->
+            <!-- end featured video -->
+        </div>
+        <!-- END sidebar -->
+    </div>
+    </div>
+{% block content %}
+    
+{% endblock %}    
+</body>

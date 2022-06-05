@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% load static %}
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+{% block header %}
+<head>
+<title>{{ post.title }}</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="stylesheet" type="text/css" href="{% static 'style.css' %}" />
+<!--[if lte IE 6]><link rel="stylesheet" type="text/css" href="ie.css" /><![endif]-->
+<link rel="stylesheet" href="{% static 'hel.css' %}">
+</head>
+{% endblock %}
+{% block content %}
+<body>
+<!-- BEGIN wrapper -->
+<div id="wrapper">
+  <!-- BEGIN body -->
+  <div id="body">
+    <!-- BEGIN content -->
+    <div id="content">
+      <div class="buffer">
+        <!-- begin post -->
+        <div class="single">
+          <h2>{{ post.title }}</h2>
+          <p>{{ post.body|safe }}</p>
+          {% if post.photo %}
+          <p><img class="alignright" src="{{ post.photo.url }}" width="200" height="150" alt="" /></p>
+          {% endif %}
+          {% if post.author == request.user %}
+          <a href="{% url 'edit' post.id %}"><button class="bn29">Edit</button></a>
+          <a href="{% url 'delete' post.id %}"><button class="bn29">Delete</button></a>
+          {% endif %}
+        </div>
+        <!-- end post -->
+      </div>
+    </div>
+    <!-- END content -->
+    <div class="break"></div>
+  </div>
+  <!-- END body -->
+  <!-- BEGIN footer -->
+  <div id="footer">Copyright &copy; 2009 - <a href="#">Website Name</a> &middot; All Rights Reserved | Template by: <a href="http://www.wpthemedesigner.com/">WordPress Designer</a> | Get More <a href="#">Free CSS Templates</a> </div>
+  <!-- END footer -->
+</div>
+<!-- END wrapper -->
+</body>
+{% endblock %}
+</html>
